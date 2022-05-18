@@ -13,6 +13,7 @@ import com.android.volley.toolbox.Volley;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest
+import org.json.JSONObject
 import java.lang.Error
 
 class MainActivity : AppCompatActivity() {
@@ -45,6 +46,10 @@ class MainActivity : AppCompatActivity() {
                     response ->
                         Log.d("Login Paciente", response.toString())
                         if(response.get("success").toString().toBoolean()){
+                            val dataJson = JSONObject(response.get("data").toString())
+                            val nombreUsuario = dataJson.getString("nombre_usuario")
+                            Helpers.Helpers.guardarDatosStorage(Helpers.Constantes.nombreUsuarioClave, nombreUsuario, this)
+
                             limpiarCampos(userText, passText)
                             startActivity(Intent(this, homepaciente::class.java))
                         } else{

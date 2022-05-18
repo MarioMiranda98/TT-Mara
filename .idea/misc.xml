@@ -3,10 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Escritorio/TT2021A027/app/src/main/res/layout/activity_homepaciente.xml" value="0.152" />
         <entry key="..\:/Escritorio/TT2021A027/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Escritorio/TT2021A027/app/src/main/res/layout/activity_olvidodecontrasena.xml" value="0.264" />
+        <entry key="..\:/Escritorio/TT2021A027/app/src/main/res/layout/activity_prueba.xml" value="0.2" />
+        <entry key="..\:/Escritorio/TT2021A027/app/src/main/res/layout/activity_pruebasasignadas.xml" value="0.176" />
         <entry key="..\:/Escritorio/TT2021A027/app/src/main/res/layout/activity_registro.xml" value="0.264" />
         <entry key="..\:/Escritorio/TT2021A027/app/src/main/res/layout/activity_renovarcontrasena.xml" value="0.16032608695652173" />
+        <entry key="..\:/Escritorio/TT2021A027/app/src/main/res/layout/pruebas_asignadas_template.xml" value="0.264" />
       </map>
     </option>
   </component>

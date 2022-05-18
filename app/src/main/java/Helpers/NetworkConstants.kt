@@ -10,5 +10,6 @@ class NetworkConstants {
         val loginPsicologo: String = "loginps"
         val resetPassPaciente: String = "resetp"
         val crearPaciente: String = "createpac"
+        val pruebasAsignadas: String = "hw"
     }
 }
