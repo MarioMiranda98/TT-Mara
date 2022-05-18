@@ -1,9 +1,14 @@
 package Paquetes.A027
 
 import Helpers.NetworkConstants
+import android.Manifest
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.database.Cursor
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -22,7 +27,7 @@ import java.io.IOException
 class registro : AppCompatActivity() {
     private var usuarioPsicologo: ArrayList<String> = ArrayList<String>()
     private val pickImage = 100
-    private var uriImagen = ""
+    lateinit var uriImagen: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro)
@@ -107,8 +112,8 @@ class registro : AppCompatActivity() {
             //Log.d("URI Imagen", uriImagen)
             val client = OkHttpClient()
             val url = NetworkConstants.urlApi + NetworkConstants.crearPaciente + "?user=$nombreUser&pass=$passwordUser&name=$nombreUsuario&lastname=$apellidosUsuario&age=$edadUsuario&gender=$genero&email=$correoUsuario&home=$domicilioUsuario&prod=$propositoUsuario&psico=$psicologoElegido"
-            val fUriImagen = Uri.parse(uriImagen)
-            val fileImagen = File(fUriImagen.path)
+            val fileImagen = File(uriImagen)
+            if(fileImagen.exists()) Log.d("Existe", "Existe")
 
             val requestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("img", fileImagen.name,
@@ -124,10 +129,14 @@ class registro : AppCompatActivity() {
             client.newCall(request).enqueue(object: Callback {
                 override fun onFailure(call: Call, e: IOException) {
                     Log.d("Fallo", e.toString())
+                    progressDialog.hide()
+                    Toast.makeText(applicationContext, "La cuenta no pudo ser creada, intentelo más tarde", Toast.LENGTH_LONG).show()
                 }
 
                 override fun onResponse(call: Call, response: okhttp3.Response) {
                     Log.d("A mimir", response.toString())
+                    progressDialog.hide()
+                    Toast.makeText(applicationContext, "La cuenta ha sido creada", Toast.LENGTH_LONG).show()
                 }
             })
         }
@@ -138,6 +147,19 @@ class registro : AppCompatActivity() {
         }
 
         buttonFoto.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= 23) {
+                val REQUEST_CODE_PERMISSION_STORAGE = 100
+                val permissions = arrayOf(
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+                for (str in permissions) {
+                    if (checkSelfPermission(str!!) != PackageManager.PERMISSION_GRANTED) {
+                        requestPermissions(permissions, REQUEST_CODE_PERMISSION_STORAGE)
+                    }
+                }
+            }
+
             val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             startActivityForResult(gallery, pickImage)
         }
@@ -149,7 +171,22 @@ class registro : AppCompatActivity() {
         if (resultCode == RESULT_OK && requestCode == pickImage) {
             //Log.d("imagen", data?.data.toString())
             imagenPerfil.setImageURI(data?.data)
-            uriImagen = data?.data.toString()
+            uriImagen = getRealPathFromURI(applicationContext, data?.data!!)!!
+        }
+    }
+
+    fun getRealPathFromURI(context: Context, contentUri: Uri): String? {
+        var cursor: Cursor? = null
+        return try {
+            val proj = arrayOf(MediaStore.Images.Media.DATA)
+            cursor = context.getContentResolver().query(contentUri, proj, null, null, null)
+            val column_index: Int = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            cursor?.moveToFirst()
+            cursor?.getString(column_index)
+        } finally {
+            if (cursor != null) {
+                cursor.close()
+            }
         }
     }
 }
