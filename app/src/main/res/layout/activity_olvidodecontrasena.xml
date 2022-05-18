@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".olvidodecontrasena">
+
+    <LinearLayout
+        android:layout_width="409dp"
+        android:layout_height="844dp"
+        android:background="@drawable/fondoprincipal"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp">
+
+        <TextView
+            android:id="@+id/textwelcomecontra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:text="Favor de ingresar el correo que ingreso en su registro"
+            android:textAlignment="center"
+            android:textColor="#421871"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/correocontrasena"
+            android:layout_width="334dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#B3673AB7"
+            android:backgroundTint="#B3673AB7"
+            android:ems="10"
+            android:fontFamily="casual"
+            android:inputType="textEmailAddress"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold|italic" />
+
+        <Button
+            android:id="@+id/buttonconfcorreo"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="casual"
+            android:text="Confirmar correo"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/buttoncancelarcontra"
+            android:layout_width="135dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="casual"
+            android:text="Cancelar"
+            android:textStyle="bold" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

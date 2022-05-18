@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    tools:context=".registro">
+
+    <LinearLayout
+        android:layout_width="409dp"
+        android:layout_height="844dp"
+        android:background="@drawable/fondoprincipal"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textwelcome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="casual"
+                    android:text="Estas a unos pasos de conseguir la ayuda que necesitas!"
+                    android:textAlignment="center"
+                    android:textColor="#421871"
+                    android:textSize="34sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textNombre"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="casual"
+                    android:text="Nombre:"
+                    android:textAlignment="center"
+                    android:textColor="#421871"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/editTextNombre"
+                    android:layout_width="346dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="#B3673AB7"
+                    android:backgroundTint="#B3673AB7"
+                    android:ems="10"
+                    android:fontFamily="casual"
+                    android:inputType="textPersonName"
+                    android:textColor="#000000"
+                    android:textStyle="bold|italic" />
+
+                <TextView
+                    android:id="@+id/textApellidos"
+                    android:layout_width="146dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="casual"
+                    android:text="Apellidos:"
+                    android:textAlignment="center"
+                    android:textColor="#421871"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/editTextApellidos"
+                    android:layout_width="348dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="#B3673AB7"
+                    android:backgroundTint="#B3673AB7"
+                    android:ems="10"
+                    android:fontFamily="casual"
+                    android:inputType="textPersonName"
+                    android:textColor="#000000"
+                    android:textStyle="bold|italic" />
+
+                <TextView
+                    android:id="@+id/textcorreo"
+                    android:layout_width="228dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="casual"
+                    android:text="Correo electronico:"
+                    android:textAlignment="center"
+                    android:textColor="#421871"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/editTextTextEmailAddress"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="#B3673AB7"
+                    android:backgroundTint="#B3673AB7"
+                    android:ems="10"
+                    android:fontFamily="casual"
+                    android:inputType="textEmailAddress"
+                    android:textColor="#000000"
+                    android:textStyle="bold|italic" />
+
+                <TextView
+                    android:id="@+id/textEdad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="casual"
+                    android:text="Edad:"
+                    android:textAlignment="center"
+                    android:textColor="#421871"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/editTextNumberEdad"
+                    android:layout_width="105dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="#B3673AB7"
+                    android:backgroundTint="#B3673AB7"
+                    android:ems="10"
+                    android:fontFamily="casual"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:textColor="#000000"
+                    android:textStyle="bold|italic" />
+
+                <TextView
+                    android:id="@+id/textSexo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="casual"
+                    android:text="Sexo:"
+                    android:textAlignment="center"
+                    android:textColor="#421871"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spinnergenero"
+                    style="@android:style/Widget.Holo.Spinner"
+                    android:layout_width="235dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:backgroundTint="#B3673AB7"
+                    android:popupBackground="@color/black"
+                    android:scrollbarSize="20dp"
+                    android:scrollbarStyle="outsideInset"
+                    android:scrollbars="vertical"
+                    android:spinnerMode="dialog"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/textDomicilio"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="casual"
+                    android:text="Domicilio:"
+                    android:textAlignment="center"
+                    android:textColor="#421871"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/EditTextDomicilio"
+                    android:layout_width="346dp"
+                    android:layout_height="158dp"
+                    android:layout_gravity="center"
+                    android:background="#B3673AB7"
+                    android:backgroundTint="#B3673AB7"
+                    android:fontFamily="casual"
+                    android:hint="Escriba a detalle su domicilio"
+                    android:inputType="textMultiLine"
+                    android:lines="5"
+                    android:textAlignment="center"
+                    android:textColor="#000000"
+                    android:textColorHint="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold|italic"></EditText>
+
+                <TextView
+                    android:id="@+id/textProposito"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="casual"
+                    android:text="Proposito:"
+                    android:textAlignment="center"
+                    android:textColor="#421871"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/editTextProposito"
+                    android:layout_width="344dp"
+                    android:layout_height="158dp"
+                    android:layout_gravity="center"
+                    android:background="#B3673AB7"
+                    android:backgroundTint="#B3673AB7"
+                    android:fontFamily="casual"
+                    android:hint="¿Porqué quiere recibir ayuda profesional?"
+                    android:inputType="textMultiLine"
+                    android:lines="7"
+                    android:textAlignment="center"
+                    android:textColor="#000000"
+                    android:textColorHint="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold|italic"></EditText>
+
+                <TextView
+                    android:id="@+id/textFotoperfil"
+                    android:layout_width="179dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="casual"
+                    android:text="Foto de perfil:"
+                    android:textAlignment="center"
+                    android:textColor="#421871"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imagenPerfil"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                <EditText
+                    android:id="@+id/editTextArchivofoto"
+                    android:layout_width="353dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="#80FFFFFF"
+                    android:ems="10"
+                    android:fontFamily="casual"
+                    android:inputType="textPersonName"
+                    android:textSize="12sp"
+                    android:textStyle="bold|italic"
+                    tools:text="Aqui aparecerá el nombre del archivo" />
+
+                <Button
+                    android:id="@+id/buttonfoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="casual"
+                    android:text="Seleccionar"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textResponsable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="casual"
+                    android:text="Psicologo Responsable:"
+                    android:textAlignment="center"
+                    android:textColor="#421871"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spinnerpsicologo"
+                    style="@android:style/Widget.Holo.Spinner"
+                    android:layout_width="345dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:backgroundTint="#B3673AB7"
+                    android:popupBackground="@color/purple_500"
+                    android:scrollbarSize="20dp"
+                    android:scrollbarStyle="outsideInset"
+                    android:scrollbars="vertical"
+                    android:spinnerMode="dialog"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/buttonCV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="casual"
+                    android:text="VER CV"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textnombreuser"
+                    android:layout_width="234dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="casual"
+                    android:text="Nombre de usuario:"
+                    android:textAlignment="center"
+                    android:textColor="#421871"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/editTextUser"
+                    android:layout_width="337dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="#B3673AB7"
+                    android:backgroundTint="#B3673AB7"
+                    android:ems="10"
+                    android:fontFamily="casual"
+                    android:inputType="textPersonName"
+                    android:textColor="#000000"
+                    android:textStyle="bold|italic" />
+
+                <TextView
+                    android:id="@+id/textpassword"
+                    android:layout_width="283dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="casual"
+                    android:text="Registre una contraseña:"
+                    android:textAlignment="center"
+                    android:textColor="#421871"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/editTextTextPassword"
+                    android:layout_width="328dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="#B3673AB7"
+                    android:backgroundTint="#B3673AB7"
+                    android:ems="10"
+                    android:fontFamily="casual"
+                    android:inputType="textPassword"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textconfirpassword"
+                    android:layout_width="370dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="casual"
+                    android:text="Confirme la contraseña ingresada:"
+                    android:textAlignment="center"
+                    android:textColor="#421871"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/editTextTextPassword2"
+                    android:layout_width="337dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="#B3673AB7"
+                    android:backgroundTint="#B3673AB7"
+                    android:ems="10"
+                    android:fontFamily="casual"
+                    android:inputType="textPassword"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/buttonCrearcuenta"
+                    android:layout_width="177dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="casual"
+                    android:text="Crear cuenta!"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/buttoncancelar"
+                    android:layout_width="192dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="casual"
+                    android:text="Cancelar"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textfinish"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="casual"
+                    android:text="Aqui termina formulario"
+                    android:textAlignment="center"
+                    android:textColor="#421871"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

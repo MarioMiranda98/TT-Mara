@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".renovarcontrasena">
+
+    <LinearLayout
+        android:layout_width="409dp"
+        android:layout_height="844dp"
+        android:background="@drawable/fondoprincipal"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp">
+
+        <TextView
+            android:id="@+id/textwelcomenuevacontra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:text="Ingrese su nueva contraseña..."
+            android:textAlignment="center"
+            android:textColor="#421871"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textnewpassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:text="Registre su contraseña:"
+            android:textAlignment="center"
+            android:textColor="#421871"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/ingr_newpassword"
+            android:layout_width="346dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#B3673AB7"
+            android:backgroundTint="#B3673AB7"
+            android:ems="10"
+            android:fontFamily="casual"
+            android:inputType="textPassword"
+            android:textAlignment="center"
+            android:textColor="#80000000"
+            android:textSize="20sp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:id="@+id/textnewpassword2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:text="Confirme contraseña:"
+            android:textAlignment="center"
+            android:textColor="#421871"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/ingr_newpassword2"
+            android:layout_width="338dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#B3673AB7"
+            android:backgroundTint="#B3673AB7"
+            android:ems="10"
+            android:fontFamily="casual"
+            android:inputType="textPassword"
+            android:textAlignment="center"
+            android:textColor="#80000000"
+            android:textSize="20sp"
+            android:textStyle="bold|italic" />
+
+        <Button
+            android:id="@+id/buttonconfnewcontra"
+            android:layout_width="268dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="casual"
+            android:text="Confirmar contraseña"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

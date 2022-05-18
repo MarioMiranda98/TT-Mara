@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">TT2021-A027</string>
+    <string-array name="genero">
+        <item>Seleccione por favor</item>
+        <item>Masculino</item>
+        <item>Femenino</item>
+    </string-array>
+
+    <string-array name="psicologos">
+        <item>Escoja su psicólogo</item>
+        <item>Psicólogo 1</item>
+        <item>Psicólogo 2</item>
+        <item>Psicólogo 3</item>
+        <item>Psicólogo 4</item>
+        <item>Psicólogo 5</item>
+    </string-array>
+</resources>
