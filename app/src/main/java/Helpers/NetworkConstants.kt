@@ -13,5 +13,6 @@ class NetworkConstants {
         val pruebasAsignadas: String = "hw"
         val findtrial: String = "findtrial"
         val findtrialRespondido: String = "findansw"
+        val asignacionesPsicologo: String = "asignpsico"
     }
 }

@@ -74,6 +74,10 @@ class MainActivity : AppCompatActivity() {
                     response ->
                 Log.d("Login Paciente", response.toString())
                 if(response.get("success").toString().toBoolean()){
+                    val dataJson = JSONObject(response.get("data").toString())
+                    val nombreUsuario = dataJson.getString("nombre_usuario")
+                    Helpers.Helpers.guardarDatosStorage(Helpers.Constantes.nombreUsuarioClave, nombreUsuario, this)
+
                     limpiarCampos(userText, passText)
                     startActivity(Intent(this, psicologo_estadodepruebas::class.java))
                 } else{
