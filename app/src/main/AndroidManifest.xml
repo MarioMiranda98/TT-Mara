@@ -21,6 +21,13 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.TT2021A027">
         <activity
+            android:name=".PruebaAbiertaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PruebaActivity"
+            android:exported="false"
+            />
+        <activity
             android:name=".psicologo_estadodepruebas"
             android:exported="false" />
         <activity

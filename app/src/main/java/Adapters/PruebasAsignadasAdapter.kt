@@ -1,6 +1,6 @@
 package Adapters
 
-import Models.PruebaModel
+import Models.ListaPruebasModel
 import Paquetes.A027.R
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,10 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 
-class PruebasAsignadasAdapter(var context: Context, items: ArrayList<PruebaModel>): BaseAdapter() {
-    var items: ArrayList<PruebaModel>? = null
+class PruebasAsignadasAdapter(var context: Context, items: ArrayList<ListaPruebasModel>): BaseAdapter() {
+    var items: ArrayList<ListaPruebasModel>? = null
 
     init {
         this.items = items
@@ -42,7 +41,7 @@ class PruebasAsignadasAdapter(var context: Context, items: ArrayList<PruebaModel
             holder = vista.tag as? ViewHolder
         }
 
-        val item = getItem(p0) as PruebaModel
+        val item = getItem(p0) as ListaPruebasModel
         holder?.nombrePrueba?.text = item.prueba
         holder?.fechaPrueba?.text = item.fechaLimite
         holder?.creadorPrueba?.text = item.creador

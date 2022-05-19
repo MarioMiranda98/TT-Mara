@@ -11,5 +11,7 @@ class NetworkConstants {
         val resetPassPaciente: String = "resetp"
         val crearPaciente: String = "createpac"
         val pruebasAsignadas: String = "hw"
+        val findtrial: String = "findtrial"
+        val findtrialRespondido: String = "findansw"
     }
 }

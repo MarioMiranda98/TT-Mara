@@ -24,10 +24,10 @@ class homepaciente : AppCompatActivity() {
             startActivity(prespondidas)
         }
 
-        val imageButtonReport = findViewById<ImageButton>(R.id.imageButtonReport)
+        /*val imageButtonReport = findViewById<ImageButton>(R.id.imageButtonReport)
         imageButtonReport.setOnClickListener {
             val dreportes = Intent(this, reportes::class.java)
             startActivity(dreportes)
-        }
+        }*/
     }
 }
