@@ -14,5 +14,8 @@ class NetworkConstants {
         val findtrial: String = "findtrial"
         val findtrialRespondido: String = "findansw"
         val asignacionesPsicologo: String = "asignpsico"
+        val renovarPass: String = "setpasspaci"
+        val urlDrivePDFViewer: String = "https://drive.google.com/viewerng/viewer?embedded=true&url="
+        val urlCVPsicologoBase: String = "https://ttpruebaspsico.s3.amazonaws.com/"
     }
 }

@@ -12,6 +12,8 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Response
@@ -26,12 +28,12 @@ import java.io.IOException
 
 class registro : AppCompatActivity() {
     private var usuarioPsicologo: ArrayList<String> = ArrayList<String>()
+    private var curriculumPsicologo: ArrayList<String> = ArrayList<String>()
     private val pickImage = 100
     lateinit var uriImagen: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro)
-
 
         val nombreUsuarioEditText = findViewById<EditText>(R.id.editTextNombre)
         val apellidosUsuarioEditText = findViewById<EditText>(R.id.editTextApellidos)
@@ -51,6 +53,7 @@ class registro : AppCompatActivity() {
 
         val buttonCrearcuenta = findViewById<Button>(R.id.buttonCrearcuenta)
         val buttonFoto = findViewById<Button>(R.id.buttonfoto)
+        val botonCV = findViewById<Button>(R.id.buttonCV)
 
         val url: String = NetworkConstants.urlApi + NetworkConstants.psicologos
         val queue = Volley.newRequestQueue(this)
@@ -67,6 +70,7 @@ class registro : AppCompatActivity() {
 
                     lista.add(nombrePsicologo + " " + apellidosPsicologo)
                     usuarioPsicologo.add(psicologos.getJSONObject(i).getString("nombre_usuario"))
+                    curriculumPsicologo.add(psicologos.getJSONObject(i).getString("curriculum"))
                 }
 
                 val adaptador2 = ArrayAdapter(this,android.R.layout.simple_spinner_item, lista)
@@ -162,6 +166,13 @@ class registro : AppCompatActivity() {
 
             val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             startActivityForResult(gallery, pickImage)
+        }
+
+        botonCV.setOnClickListener {
+            val curriculum = curriculumPsicologo[spinner2.selectedItemPosition]
+            val intent = Intent(this, WebViewActivity::class.java)
+            intent.putExtra("curriculum", curriculum)
+            startActivity(intent)
         }
     }
 

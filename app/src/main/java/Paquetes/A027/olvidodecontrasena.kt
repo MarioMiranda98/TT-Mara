@@ -31,7 +31,7 @@ class olvidodecontrasena : AppCompatActivity() {
                     response ->
                 Log.d("Reset pass", response.toString())
                 if(response.get("code").toString().toInt() == 201) {
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, renovarcontrasena::class.java))
                     Toast.makeText(this,"Se ha enviado un mensaje a su correo para restablecer la contraseña", Toast.LENGTH_LONG).show()
                 } else{
                     Toast.makeText(this, "${response.get("message").toString()}", Toast.LENGTH_SHORT).show()

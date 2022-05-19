@@ -20,6 +20,11 @@
         android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.TT2021A027">
+        <meta-data android:name="android.webkit.WebView.EnableSafeBrowsing"
+            android:value="false" />
+        <activity
+            android:name=".WebViewActivity"
+            android:exported="false"/>
         <activity
             android:name=".PruebaAbiertaActivity"
             android:exported="false" />

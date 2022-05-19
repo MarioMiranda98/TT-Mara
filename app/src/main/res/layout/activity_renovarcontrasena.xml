@@ -29,6 +29,33 @@
             android:id="@+id/textnewpassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="casual"
+            android:text="Correo"
+            android:textAlignment="center"
+            android:textColor="#421871"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="344dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#B3673AB7"
+            android:backgroundTint="#B3673AB7"
+            android:ems="10"
+            android:fontFamily="casual"
+            android:textAlignment="center"
+            android:textColor="#80000000"
+            android:textSize="20sp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:id="@+id/textnewpassword5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:fontFamily="casual"
             android:text="Registre su contraseña:"
             android:textAlignment="center"
@@ -55,6 +82,7 @@
             android:id="@+id/textnewpassword2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:fontFamily="casual"
             android:text="Confirme contraseña:"
             android:textAlignment="center"
@@ -77,13 +105,40 @@
             android:textSize="20sp"
             android:textStyle="bold|italic" />
 
+        <TextView
+            android:id="@+id/textnewpassword3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="casual"
+            android:text="Código de verificación"
+            android:textAlignment="center"
+            android:textColor="#421871"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/codigoVerficiacion"
+            android:layout_width="335dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#B3673AB7"
+            android:backgroundTint="#B3673AB7"
+            android:ems="10"
+            android:fontFamily="casual"
+            android:textAlignment="center"
+            android:textColor="#80000000"
+            android:textSize="20sp"
+            android:textStyle="bold|italic" />
+
         <Button
             android:id="@+id/buttonconfnewcontra"
             android:layout_width="268dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             android:fontFamily="casual"
-            android:text="Confirmar contraseña"
+            android:text="Confirmar "
             android:textStyle="bold" />
 
     </LinearLayout>
