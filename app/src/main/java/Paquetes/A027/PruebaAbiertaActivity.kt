@@ -77,7 +77,7 @@ class PruebaAbiertaActivity: AppCompatActivity() {
             )
 
             val gson = Gson()
-            val jsonPruebaRes: String = gson.toJson(pruebaRespuestaAbiertaModel)
+            val jsonPruebaRes: String = gson.toJson(pruebaRespuestaAbiertaModel.reactivos_respuestas)
             Log.d("Json Prueba", jsonPruebaRes)
 
             val urlNueva = NetworkConstants.urlApi + NetworkConstants.responderPrueba + "?name=${pruebaRespuestaAbiertaModel.nombre_prueba}&paci=${pruebaRespuestaAbiertaModel.quien_respondio}&type=${pruebaRespuestaAbiertaModel.tipo}&clasif=${pruebaRespuestaAbiertaModel.clasif}&trial=${jsonPruebaRes}"

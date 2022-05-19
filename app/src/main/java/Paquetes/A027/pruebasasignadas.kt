@@ -5,6 +5,7 @@ import Helpers.NetworkConstants
 import Models.ListaPruebasModel
 import Models.PruebaAbiertaModel
 import Models.PruebaModel
+import Models.PruebaRespuestaModel
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -66,14 +67,25 @@ class pruebasasignadas : AppCompatActivity() {
                                                 .getString("tipo")
                                                 .equals("Likert")
                                         ) {
-                                            val pruebaRequest: PruebaModel = PruebaModel(
-                                                json.getJSONArray("data").getJSONObject(0),
-                                                lista.get(position).status
-                                            )
-                                            val intent = Intent(this, PruebaActivity::class.java)
-                                            intent.putExtra("prueba", pruebaRequest)
-                                            intent.putExtra("resultados", false)
-                                            startActivity(intent)
+                                            if(lista.get(position).status.equals("Pendiente")) {
+                                                val pruebaRequest = PruebaModel(
+                                                    json.getJSONArray("data").getJSONObject(0),
+                                                    lista.get(position).status
+                                                )
+                                                val intent = Intent(this, PruebaActivity::class.java)
+                                                intent.putExtra("prueba", pruebaRequest)
+                                                intent.putExtra("resultados", false)
+                                                startActivity(intent)
+                                            } else {
+                                                val pruebaRequest = PruebaModel(
+                                                    json.getJSONArray("data").getJSONObject(0),
+                                                    lista.get(position).status
+                                                )
+                                                val intent = Intent(this, PruebaActivity::class.java)
+                                                intent.putExtra("prueba", pruebaRequest)
+                                                intent.putExtra("resultados", true)
+                                                startActivity(intent)
+                                            }
                                         } else {
                                             val intent =
                                                 Intent(this, PruebaAbiertaActivity::class.java)

@@ -51,16 +51,17 @@ class PreguntasAdapter(var context: Context, items: ArrayList<ReactivoPruebaMode
         pintarReactivos(holder, item)
         pintarRespuestas(holder, item, contestada)
 
-        val radioMap = guardarTags(holder, item)
-        holder?.radioGroup?.setTag(radioMap)
+        if(!contestada) {
+            val radioMap = guardarTags(holder, item)
+            holder?.radioGroup?.setTag(radioMap)
 
-        holder?.radioGroup?.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group: RadioGroup?, i: Int ->
+            holder?.radioGroup?.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group: RadioGroup?, i: Int ->
                 val data = group!!.tag as HashMap<Int, Int>
                 //Toast.makeText(context, data.get(i).toString(), Toast.LENGTH_SHORT).show()
                 item.respuesta = data.get(i)!!
             }
-        )
-
+            )
+        }
         return vista!!
     }
 
@@ -112,17 +113,17 @@ class PreguntasAdapter(var context: Context, items: ArrayList<ReactivoPruebaMode
         val numOpciones = item.opciones.size
 
         if(numOpciones == 4) {
-            holder?.respuesta1?.isChecked = item.respuesta == item.valor.get(0)
-            holder?.respuesta2?.isChecked = item.respuesta == item.valor.get(1)
-            holder?.respuesta3?.isChecked = item.respuesta == item.valor.get(2)
-            holder?.respuesta4?.isChecked = item.respuesta == item.valor.get(3)
+            holder?.respuesta1?.isChecked = item.respuesta == item.valorR
+            holder?.respuesta2?.isChecked = item.respuesta == item.valorR
+            holder?.respuesta3?.isChecked = item.respuesta == item.valorR
+            holder?.respuesta4?.isChecked = item.respuesta == item.valorR
         } else if (numOpciones == 3) {
-            holder?.respuesta1?.isChecked = item.respuesta == item.valor.get(0)
-            holder?.respuesta2?.isChecked = item.respuesta == item.valor.get(1)
-            holder?.respuesta3?.isChecked = item.respuesta == item.valor.get(2)
+            holder?.respuesta1?.isChecked = item.respuesta == item.valorR
+            holder?.respuesta2?.isChecked = item.respuesta == item.valorR
+            holder?.respuesta3?.isChecked = item.respuesta == item.valorR
         } else if (numOpciones == 2) {
-            holder?.respuesta1?.isChecked = item.respuesta == item.valor.get(0)
-            holder?.respuesta2?.isChecked = item.respuesta == item.valor.get(1)
+            holder?.respuesta1?.isChecked = item.respuesta == item.valorR
+            holder?.respuesta2?.isChecked = item.respuesta == item.valorR
         }
     }
 

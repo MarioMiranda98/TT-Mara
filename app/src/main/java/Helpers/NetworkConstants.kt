@@ -18,6 +18,8 @@ class NetworkConstants {
         val urlDrivePDFViewer: String = "https://drive.google.com/viewerng/viewer?embedded=true&url="
         val urlCVPsicologoBase: String = "https://ttpruebaspsico.s3.amazonaws.com/"
         val responderPrueba: String = "saveanwers"
+        val responderPruebaAbierta: String = "saveanwersa"
         val pruebasInvitado: String = "trials"
+        val statusPrueba: String = "upstatus"
     }
 }

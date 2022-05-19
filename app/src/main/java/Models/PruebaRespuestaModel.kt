@@ -18,4 +18,5 @@ class PruebaRespuestaModel: Serializable {
             this.tipo = tipo
             this.clasif = clasif
         }
+
 }

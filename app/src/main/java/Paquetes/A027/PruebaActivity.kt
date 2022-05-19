@@ -5,6 +5,7 @@ import Helpers.NetworkConstants
 import Models.PruebaModel
 import Models.PruebaRespuestaModel
 import Models.ReactivoRespuestaModel
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -83,7 +84,7 @@ class PruebaActivity: AppCompatActivity() {
                 usuario
             )
             val gson = Gson()
-            val jsonPruebaRes: String = gson.toJson(pruebaRespuestaModel)
+            val jsonPruebaRes: String = gson.toJson(pruebaRespuestaModel.reactivos_respuestas)
             Log.d("Json Prueba", jsonPruebaRes)
 
             val urlNueva = NetworkConstants.urlApi + NetworkConstants.responderPrueba + "?name=${pruebaRespuestaModel.nombre_prueba}&paci=${pruebaRespuestaModel.quien_respondio}&type=${pruebaRespuestaModel.tipo}&clasif=${pruebaRespuestaModel.clasif}&trial=$jsonPruebaRes"
@@ -91,6 +92,23 @@ class PruebaActivity: AppCompatActivity() {
             val jsonObjectRequest = JsonObjectRequest(
                 Request.Method.POST, urlNueva, null, Response.Listener {
                     response -> Log.d("Respuesta", response.toString())
+                    if(response.getInt("code") == 201) {
+                        val urlStatus = NetworkConstants.urlApi + NetworkConstants.statusPrueba + "?trial=${pruebaRespuestaModel.nombre_prueba}&paci=${pruebaRespuestaModel.quien_respondio}"
+                        val jsonObjectRequest = JsonObjectRequest(Request.Method.POST, urlStatus,
+                            null, Response.Listener { response ->
+                                if(response.getInt("code") == 200) {
+                                    Log.d("Status cambiado", "El status ha sido cambiado")
+                                    startActivity(Intent(this, pruebasasignadas::class.java))
+                                }
+                            },
+                            Response.ErrorListener {
+                                error -> Log.d("Error", "Error al actualizar las respuestas del formulario")
+                                startActivity(Intent(this, pruebasasignadas::class.java))
+                            }
+                        )
+
+                        queue.add(jsonObjectRequest)
+                    }
                 },
                 Response.ErrorListener {
                     error -> Log.d("Error", "Error al enviar las respuestas del formulario")
