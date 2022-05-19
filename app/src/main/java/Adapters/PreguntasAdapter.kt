@@ -113,17 +113,17 @@ class PreguntasAdapter(var context: Context, items: ArrayList<ReactivoPruebaMode
         val numOpciones = item.opciones.size
 
         if(numOpciones == 4) {
-            holder?.respuesta1?.isChecked = item.respuesta == item.valorR
-            holder?.respuesta2?.isChecked = item.respuesta == item.valorR
-            holder?.respuesta3?.isChecked = item.respuesta == item.valorR
-            holder?.respuesta4?.isChecked = item.respuesta == item.valorR
+            holder?.respuesta1?.isChecked = item.respuesta == item.valor.get(0)
+            holder?.respuesta2?.isChecked = item.respuesta == item.valor.get(1)
+            holder?.respuesta3?.isChecked = item.respuesta == item.valor.get(2)
+            holder?.respuesta4?.isChecked = item.respuesta == item.valor.get(3)
         } else if (numOpciones == 3) {
-            holder?.respuesta1?.isChecked = item.respuesta == item.valorR
-            holder?.respuesta2?.isChecked = item.respuesta == item.valorR
-            holder?.respuesta3?.isChecked = item.respuesta == item.valorR
+            holder?.respuesta1?.isChecked = item.respuesta == item.valor.get(0)
+            holder?.respuesta2?.isChecked = item.respuesta == item.valor.get(1)
+            holder?.respuesta3?.isChecked = item.respuesta == item.valor.get(2)
         } else if (numOpciones == 2) {
-            holder?.respuesta1?.isChecked = item.respuesta == item.valorR
-            holder?.respuesta2?.isChecked = item.respuesta == item.valorR
+            holder?.respuesta1?.isChecked = item.respuesta == item.valor.get(0)
+            holder?.respuesta2?.isChecked = item.respuesta == item.valor.get(1)
         }
     }
 

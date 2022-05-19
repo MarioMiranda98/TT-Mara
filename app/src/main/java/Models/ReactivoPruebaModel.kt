@@ -9,7 +9,6 @@ class ReactivoPruebaModel: Serializable {
     var pregunta: String
     var opciones: ArrayList<String>
     var valor: ArrayList<Int>
-    var valorR: Int
     var tipo: String
     var respuesta: Int
     var status: String
@@ -20,18 +19,14 @@ class ReactivoPruebaModel: Serializable {
         if(status.equals("Contestada")) {
             this.respuesta = dataJson.getInt("respuesta")
             this.opciones = parsearOpcionesContestadas(dataJson.getString("opciones"))
-            this.valor = ArrayList<Int>()
-            this.valorR = dataJson.getInt("valor")
         }
         else {
             this.respuesta = -1
             this.opciones = parsearOpciones(dataJson.getJSONArray("opciones"))
-            this.valor = parsearValores(dataJson.getJSONArray("opciones"))
-            this.valorR = 0
         }
+        this.valor = parsearValores(dataJson.getJSONArray("opciones"))
         this.status = status
     }
-
 
     private fun parsearOpciones(data: JSONArray): ArrayList<String> {
         var listaOpciones: ArrayList<String> = ArrayList<String>()
@@ -56,17 +51,6 @@ class ReactivoPruebaModel: Serializable {
     }
 
     private fun parsearValores(data: JSONArray): ArrayList<Int> {
-        var listaValores: ArrayList<Int> = ArrayList<Int>()
-
-        for(i in 0..data.length() -1) {
-            val valor: Int = data.getJSONObject(i).getInt("value")
-            listaValores.add(valor)
-        }
-
-        return listaValores
-    }
-
-    private fun parsearValoresContestados(data: JSONArray): ArrayList<Int> {
         var listaValores: ArrayList<Int> = ArrayList<Int>()
 
         for(i in 0..data.length() -1) {
