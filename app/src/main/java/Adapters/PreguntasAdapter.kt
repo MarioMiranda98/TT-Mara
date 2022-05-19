@@ -3,14 +3,13 @@ package Adapters
 import Models.ReactivoPruebaModel
 import Paquetes.A027.R
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.TextView
+import android.widget.*
 import androidx.core.view.isVisible
+
 
 class PreguntasAdapter(var context: Context, items: ArrayList<ReactivoPruebaModel>): BaseAdapter() {
     var items: ArrayList<ReactivoPruebaModel>? = null
@@ -52,6 +51,16 @@ class PreguntasAdapter(var context: Context, items: ArrayList<ReactivoPruebaMode
         pintarReactivos(holder, item)
         pintarRespuestas(holder, item, contestada)
 
+        val radioMap = guardarTags(holder, item)
+        holder?.radioGroup?.setTag(radioMap)
+
+        holder?.radioGroup?.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group: RadioGroup?, i: Int ->
+                val data = group!!.tag as HashMap<Int, Int>
+                Toast.makeText(context, data.get(i).toString(), Toast.LENGTH_SHORT).show()
+                item.respuesta = data.get(i)!!
+            }
+        )
+
         return vista!!
     }
 
@@ -75,6 +84,27 @@ class PreguntasAdapter(var context: Context, items: ArrayList<ReactivoPruebaMode
             holder?.respuesta3?.isVisible = false
             holder?.respuesta4?.isVisible = false
         }
+    }
+
+    private fun guardarTags(holder: ViewHolder?, item: ReactivoPruebaModel): HashMap<Int, Int> {
+        val radioMap = HashMap<Int, Int>()
+        val numOpciones = item.opciones.size
+
+        if(numOpciones == 4) {
+            radioMap[holder?.respuesta1?.getId()!!] = item.valor.get(0)
+            radioMap[holder?.respuesta2?.getId()!!] = item.valor.get(1)
+            radioMap[holder?.respuesta3?.getId()!!] = item.valor.get(2)
+            radioMap[holder?.respuesta4?.getId()!!] = item.valor.get(3)
+        } else if(numOpciones == 3) {
+            radioMap[holder?.respuesta1?.getId()!!] = item.valor.get(0)
+            radioMap[holder?.respuesta2?.getId()!!] = item.valor.get(1)
+            radioMap[holder?.respuesta3?.getId()!!] = item.valor.get(2)
+        } else if(numOpciones == 2) {
+            radioMap[holder?.respuesta1?.getId()!!] = item.valor.get(0)
+            radioMap[holder?.respuesta2?.getId()!!] = item.valor.get(1)
+        }
+
+        return radioMap
     }
 
     private fun pintarRespuestas(holder: ViewHolder?, item: ReactivoPruebaModel, contestada: Boolean) {

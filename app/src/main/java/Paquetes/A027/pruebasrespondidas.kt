@@ -57,8 +57,7 @@ class pruebasrespondidas : AppCompatActivity() {
                                     startActivity(intent)
                                 } else {
                                     val intent = Intent(this, PruebaAbiertaActivity::class.java)
-                                    val pruebaRequest: PruebaAbiertaModel = PruebaAbiertaModel(json.getJSONArray("data").getJSONObject(0))
-                                    pruebaRequest.status = lista.get(position).status
+                                    val pruebaRequest: PruebaAbiertaModel = PruebaAbiertaModel(json.getJSONArray("data").getJSONObject(0), lista.get(position).status)
                                     intent.putExtra("prueba", pruebaRequest)
                                     intent.putExtra("resultados", true)
                                     startActivity(intent)

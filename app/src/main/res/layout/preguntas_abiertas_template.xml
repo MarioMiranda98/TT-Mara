@@ -24,7 +24,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/plain_text"
+            android:id="@+id/campoEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

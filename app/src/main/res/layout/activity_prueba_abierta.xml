@@ -46,6 +46,15 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="5dp"
                     android:text="Enviar" />
+
+                <TextView
+                    android:id="@+id/ResultadoPruebaAbierta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="casual"
+                    android:text="Resultado:"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
             </LinearLayout>
         </ScrollView>
 
