@@ -29,49 +29,65 @@ class pruebasrespondidas : AppCompatActivity() {
         val queue = Volley.newRequestQueue(this)
         val jsonObjectRequest = JsonObjectRequest(url, null, Response.Listener {
                 response ->
+                if(response.getInt("code") == 200) {
                     var lista: ArrayList<ListaPruebasModel> = ArrayList<ListaPruebasModel>()
                     val json = JSONObject(response.toString())
                     val asignaciones = json.getJSONArray("data")
-                    for(i in 0..asignaciones.length() - 1) {
-                        if(asignaciones.getJSONObject(i).getString("status").equals("Contestada"))
+                    for (i in 0..asignaciones.length() - 1) {
+                        if (asignaciones.getJSONObject(i).getString("status").equals("Contestada"))
                             lista.add(ListaPruebasModel(asignaciones.getJSONObject(i)))
                     }
 
                     val adaptadorAsignaciones = PruebasAsignadasAdapter(this, lista)
                     listaRespondidas.adapter = adaptadorAsignaciones
-                    listaRespondidas.onItemClickListener = AdapterView.OnItemClickListener {
-                            parent, view, position, id ->
-                            val urlNueva = NetworkConstants.urlApi + NetworkConstants.findtrialRespondido + "?trial=${lista.get(position).prueba}&paci=$usuario"
+                    listaRespondidas.onItemClickListener =
+                        AdapterView.OnItemClickListener { parent, view, position, id ->
+                            val urlNueva =
+                                NetworkConstants.urlApi + NetworkConstants.findtrialRespondido + "?trial=${
+                                    lista.get(position).prueba
+                                }&paci=$usuario"
 
-                        val jsonObjectRequest = JsonObjectRequest(urlNueva, null, Response.Listener {
-                                response -> Log.d("respuesta trial", response.toString())
-                            if(response.getInt("code") == 200) {
-                                val json = JSONObject(response.toString())
+                            val jsonObjectRequest =
+                                JsonObjectRequest(urlNueva, null, Response.Listener { response ->
+                                    Log.d("respuesta trial", response.toString())
+                                    if (response.getInt("code") == 200) {
+                                        val json = JSONObject(response.toString())
 
-                                //Log.d("Prueba Model", pruebaRequest.reactivos.get(0).pregunta.toString())
-                                if(json.getJSONArray("data").getJSONObject(0).getString("tipo").equals("Likert")) {
-                                    val pruebaRequest: PruebaModel = PruebaModel(json.getJSONArray("data").getJSONObject(0), lista.get(position).status)
-                                    val intent = Intent(this, PruebaActivity::class.java)
-                                    intent.putExtra("prueba", pruebaRequest)
-                                    intent.putExtra("resultados", true)
-                                    startActivity(intent)
-                                } else {
-                                    val intent = Intent(this, PruebaAbiertaActivity::class.java)
-                                    val pruebaRequest: PruebaAbiertaModel = PruebaAbiertaModel(json.getJSONArray("data").getJSONObject(0), lista.get(position).status)
-                                    intent.putExtra("prueba", pruebaRequest)
-                                    intent.putExtra("resultados", true)
-                                    startActivity(intent)
-                                }
-                            } else {
-                                Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
-                            }
-                        },
-                            Response.ErrorListener { error ->
-                                Log.d("Error", "Error buscar formulario")
-                            }
-                        )
-                        queue.add(jsonObjectRequest)
-                    }
+                                        //Log.d("Prueba Model", pruebaRequest.reactivos.get(0).pregunta.toString())
+                                        if (json.getJSONArray("data").getJSONObject(0)
+                                                .getString("tipo").equals("Likert")
+                                        ) {
+                                            val pruebaRequest: PruebaModel = PruebaModel(
+                                                json.getJSONArray("data").getJSONObject(0),
+                                                lista.get(position).status
+                                            )
+                                            val intent = Intent(this, PruebaActivity::class.java)
+                                            intent.putExtra("prueba", pruebaRequest)
+                                            intent.putExtra("resultados", true)
+                                            startActivity(intent)
+                                        } else {
+                                            val intent =
+                                                Intent(this, PruebaAbiertaActivity::class.java)
+                                            val pruebaRequest: PruebaAbiertaModel =
+                                                PruebaAbiertaModel(
+                                                    json.getJSONArray("data").getJSONObject(0),
+                                                    lista.get(position).status
+                                                )
+                                            intent.putExtra("prueba", pruebaRequest)
+                                            intent.putExtra("resultados", true)
+                                            startActivity(intent)
+                                        }
+                                    } else {
+                                        Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
+                                    }
+                                },
+                                    Response.ErrorListener { error ->
+                                        Log.d("Error", "Error buscar formulario")
+                                    }
+                                )
+                            queue.add(jsonObjectRequest)
+                        }
+                }
                 },
             Response.ErrorListener {
                 error -> Log.d("Pruebas asignadas", error.toString())

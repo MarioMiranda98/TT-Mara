@@ -56,7 +56,7 @@ class PreguntasAdapter(var context: Context, items: ArrayList<ReactivoPruebaMode
 
         holder?.radioGroup?.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group: RadioGroup?, i: Int ->
                 val data = group!!.tag as HashMap<Int, Int>
-                Toast.makeText(context, data.get(i).toString(), Toast.LENGTH_SHORT).show()
+                //Toast.makeText(context, data.get(i).toString(), Toast.LENGTH_SHORT).show()
                 item.respuesta = data.get(i)!!
             }
         )

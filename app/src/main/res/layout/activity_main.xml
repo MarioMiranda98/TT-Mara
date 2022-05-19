@@ -34,14 +34,15 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="216dp"
+            android:layout_height="191dp"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/imagelogo"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
-                app:srcCompat="@drawable/ic_launcher_foreground" />
+                app:srcCompat="@drawable/logoinicio"
+                tools:srcCompat="@drawable/logoinicio" />
 
             <TextView
                 android:id="@+id/textUsuario"

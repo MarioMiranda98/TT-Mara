@@ -30,39 +30,58 @@ class pruebasasignadas : AppCompatActivity() {
         val jsonObjectRequest = JsonObjectRequest(url, null, Response.Listener {
                 response ->
                     //Log.d("respuesta", response.get("data").toString())
+                if(response.getInt("code") == 200) {
                     var lista: ArrayList<ListaPruebasModel> = ArrayList<ListaPruebasModel>()
                     val json = JSONObject(response.toString())
                     val asignaciones = json.getJSONArray("data")
-                    for(i in 0..asignaciones.length() - 1) {
+                    for (i in 0..asignaciones.length() - 1) {
                         lista.add(ListaPruebasModel(asignaciones.getJSONObject(i)))
                     }
 
                     //val adaptadorAsignaciones = ArrayAdapter<PruebaModel>(this, android.R.layout.simple_expandable_list_item_1, lista)
                     val adaptadorAsignaciones = PruebasAsignadasAdapter(this, lista)
                     listaAsignaciones.adapter = adaptadorAsignaciones
-                    listaAsignaciones.onItemClickListener = AdapterView.OnItemClickListener {
-                        parent, view, position, id ->
+                    listaAsignaciones.onItemClickListener =
+                        AdapterView.OnItemClickListener { parent, view, position, id ->
                             var urlNueva: String = ""
                             if (lista.get(position).status.equals("Pendiente")) {
-                                urlNueva = NetworkConstants.urlApi + NetworkConstants.findtrial + "?name=${lista.get(position).prueba}"
+                                urlNueva =
+                                    NetworkConstants.urlApi + NetworkConstants.findtrial + "?name=${
+                                        lista.get(position).prueba
+                                    }"
                             } else {
-                                urlNueva = NetworkConstants.urlApi + NetworkConstants.findtrialRespondido + "?trial=${lista.get(position).prueba}&paci=$usuario"
+                                urlNueva =
+                                    NetworkConstants.urlApi + NetworkConstants.findtrialRespondido + "?trial=${
+                                        lista.get(position).prueba
+                                    }&paci=$usuario"
                             }
-                            val jsonObjectRequest = JsonObjectRequest(urlNueva, null, Response.Listener {
-                                    response -> Log.d("respuesta trial", response.toString())
-                                    if(response.getInt("code") == 200) {
+                            val jsonObjectRequest =
+                                JsonObjectRequest(urlNueva, null, Response.Listener { response ->
+                                    Log.d("respuesta trial", response.toString())
+                                    if (response.getInt("code") == 200) {
                                         val json = JSONObject(response.toString())
 
                                         //Log.d("Prueba Model", pruebaRequest.reactivos.get(0).pregunta.toString())
-                                        if(json.getJSONArray("data").getJSONObject(0).getString("tipo").equals("Likert")) {
-                                            val pruebaRequest: PruebaModel = PruebaModel(json.getJSONArray("data").getJSONObject(0), lista.get(position).status)
+                                        if (json.getJSONArray("data").getJSONObject(0)
+                                                .getString("tipo")
+                                                .equals("Likert")
+                                        ) {
+                                            val pruebaRequest: PruebaModel = PruebaModel(
+                                                json.getJSONArray("data").getJSONObject(0),
+                                                lista.get(position).status
+                                            )
                                             val intent = Intent(this, PruebaActivity::class.java)
                                             intent.putExtra("prueba", pruebaRequest)
                                             intent.putExtra("resultados", false)
                                             startActivity(intent)
                                         } else {
-                                            val intent = Intent(this, PruebaAbiertaActivity::class.java)
-                                            val pruebaRequest: PruebaAbiertaModel = PruebaAbiertaModel(json.getJSONArray("data").getJSONObject(0), lista.get(position).status)
+                                            val intent =
+                                                Intent(this, PruebaAbiertaActivity::class.java)
+                                            val pruebaRequest: PruebaAbiertaModel =
+                                                PruebaAbiertaModel(
+                                                    json.getJSONArray("data").getJSONObject(0),
+                                                    lista.get(position).status
+                                                )
                                             intent.putExtra("prueba", pruebaRequest)
                                             intent.putExtra("resultados", false)
                                             startActivity(intent)
@@ -71,12 +90,13 @@ class pruebasasignadas : AppCompatActivity() {
                                         Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
                                     }
                                 },
-                                Response.ErrorListener { error ->
-                                    Log.d("Error", "Error buscar formulario")
-                                }
-                            )
-                        queue.add(jsonObjectRequest)
-                    }
+                                    Response.ErrorListener { error ->
+                                        Log.d("Error", "Error buscar formulario")
+                                    }
+                                )
+                            queue.add(jsonObjectRequest)
+                        }
+                }
             },
             Response.ErrorListener {
                 error -> Log.d("Pruebas asignadas", error.toString())

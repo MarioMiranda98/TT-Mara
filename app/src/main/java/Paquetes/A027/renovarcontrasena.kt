@@ -24,13 +24,13 @@ class renovarcontrasena : AppCompatActivity() {
         val editTextCodigo = findViewById<EditText>(R.id.codigoVerficiacion)
         val editTextEmail = findViewById<EditText>(R.id.email)
 
-        val email = editTextEmail.getText().trim()
-        val pass = editTextPass.getText().trim()
-        val passConf = editTextPassConf.getText().trim()
-        val codigo = editTextCodigo.getText().trim()
-
         buttonconfnewcontra.setOnClickListener {
-            val url: String = NetworkConstants.urlApi + NetworkConstants.renovarPass + "?email=$email&pass_token$codigo&password=$pass"
+            val email = editTextEmail.getText().trim()
+            val pass = editTextPass.getText().trim()
+            val passConf = editTextPassConf.getText().trim()
+            val codigo = editTextCodigo.getText().trim()
+
+            val url: String = NetworkConstants.urlApi + NetworkConstants.renovarPass + "?email=$email&pass_token=$codigo&password=$pass"
             val queue = Volley.newRequestQueue(this)
 
             val jsonObjectRequest = JsonObjectRequest(

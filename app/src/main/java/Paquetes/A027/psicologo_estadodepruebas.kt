@@ -32,15 +32,18 @@ class psicologo_estadodepruebas : AppCompatActivity() {
 
         val jsonObjectRequest = JsonObjectRequest(url, null, Response.Listener {
                 response ->
-            var lista: ArrayList<ListaPsicologosPruebasModel> = ArrayList<ListaPsicologosPruebasModel>()
-            val json = JSONObject(response.toString())
-            val asignaciones = json.getJSONArray("data")
-            for(i in 0..asignaciones.length() - 1) {
+            if(response.getInt("code") == 200) {
+                var lista: ArrayList<ListaPsicologosPruebasModel> =
+                    ArrayList<ListaPsicologosPruebasModel>()
+                val json = JSONObject(response.toString())
+                val asignaciones = json.getJSONArray("data")
+                for (i in 0..asignaciones.length() - 1) {
                     lista.add(ListaPsicologosPruebasModel(asignaciones.getJSONObject(i)))
-            }
+                }
 
-            val adaptadorAsignaciones = PruebasPsicologoAdapter(this, lista)
-            listaAsignadas.adapter = adaptadorAsignaciones
+                val adaptadorAsignaciones = PruebasPsicologoAdapter(this, lista)
+                listaAsignadas.adapter = adaptadorAsignaciones
+            }
         },
             Response.ErrorListener {
                     error -> Log.d("Pruebas asignadas", error.toString())

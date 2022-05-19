@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Escritorio/TT2021A027/app/src/main/res/layout/activity_homeinvitado.xml" value="0.16168478260869565" />
         <entry key="..\:/Escritorio/TT2021A027/app/src/main/res/layout/activity_homepaciente.xml" value="0.152" />
         <entry key="..\:/Escritorio/TT2021A027/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Escritorio/TT2021A027/app/src/main/res/layout/activity_olvidodecontrasena.xml" value="0.264" />
@@ -18,6 +19,7 @@
         <entry key="..\:/Escritorio/TT2021A027/app/src/main/res/layout/preguntas_abiertas_template.xml" value="0.25" />
         <entry key="..\:/Escritorio/TT2021A027/app/src/main/res/layout/preguntas_likert_template.xml" value="0.2" />
         <entry key="..\:/Escritorio/TT2021A027/app/src/main/res/layout/pruebas_asignadas_template.xml" value="0.264" />
+        <entry key="..\:/Escritorio/TT2021A027/app/src/main/res/layout/pruebas_invitado_template.xml" value="0.25" />
         <entry key="..\:/Escritorio/TT2021A027/app/src/main/res/layout/pruebas_psicologo_template.xml" value="0.264" />
         <entry key="..\:/Escritorio/TT2021A027/app/src/main/res/layout/web_view_layout.xml" value="0.1" />
       </map>

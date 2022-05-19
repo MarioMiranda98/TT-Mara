@@ -28,11 +28,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="casual"
-                    android:text="Hola, puedes resolver cualquier prueba publicada a continuación:"
+                    android:text="Hola, puedes ver cualquier prueba publicada a continuación:"
                     android:textAlignment="center"
                     android:textColor="#401E7E"
                     android:textSize="34sp"
                     android:textStyle="bold" />
+
+                <ListView
+                    android:id="@+id/ContenidoInvitado"
+                    android:layout_width="match_parent"
+                    android:layout_height="528dp" />
 
             </LinearLayout>
         </ScrollView>
