@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="casual"
-            android:text="Favor de ingresar el correo que ingreso en su registro"
+            android:text="Favor de ingresar el correo asociado a su cuenta"
             android:textAlignment="center"
             android:textColor="#421871"
             android:textSize="34sp"

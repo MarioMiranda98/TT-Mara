@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TT2021-A027</string>
+    <string name="app_name">LBO</string>
     <string-array name="genero">
         <item>Seleccione por favor</item>
         <item>Masculino</item>

@@ -13,16 +13,26 @@ class PruebaAbiertaModel: Serializable {
     var clasificacion: String
     var nota: String
     var creador: String
+    var analisisTratamiento: String
 
     constructor(dataJson: JSONObject, status: String) {
         this.idPrueba = dataJson.getInt("ID")
         this.nombrePrueba = dataJson.getString("nombre_prueba")
-        this.reactivos = parsearReactivoPruebaModel(dataJson.getString("reactivos"), status)
-        this.descripcion = dataJson.getString("descripcion")
         this.tipo = dataJson.getString("tipo")
         this.clasificacion = dataJson.getString("clasif")
-        this.nota = dataJson.getString("nota")
-        this.creador = dataJson.getString("creador_prueba")
+        if(status.equals("Pendiente")) {
+            this.reactivos = parsearReactivoPruebaModel(dataJson.getString("reactivos"), status)
+            this.descripcion = dataJson.getString("descripcion")
+            this.nota = dataJson.getString("nota")
+            this.creador = dataJson.getString("creador_prueba")
+            this.analisisTratamiento = ""
+        } else {
+            this.reactivos = parsearReactivoPruebaModel(dataJson.getString("reactivos_respuestas"), status)
+            this.descripcion = ""
+            this.nota = ""
+            this.creador = ""
+            this.analisisTratamiento = dataJson.getString("analisis_tratamiento")
+        }
     }
 
     private fun parsearReactivoPruebaModel(dataJson: String, status: String): ArrayList<ReactivoPruebaAbiertaModel> {

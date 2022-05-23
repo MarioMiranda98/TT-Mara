@@ -2,6 +2,7 @@ package Paquetes.A027
 
 import Adapters.PreguntasAdapter
 import Helpers.NetworkConstants
+import Models.OpcionesRespuestaModel
 import Models.PruebaModel
 import Models.PruebaRespuestaModel
 import Models.ReactivoRespuestaModel
@@ -33,10 +34,10 @@ class PruebaActivity: AppCompatActivity() {
         val layoutResultados = findViewById<LinearLayout>(R.id.ResultadosLayout)
         var analisisTratamiento = findViewById<TextView>(R.id.AnalisisTratamientotextView)
         val listaPreguntas = findViewById<ListView>(R.id.ContenidoPrueba)
-        val adapatorPreguntas = PreguntasAdapter(this, prueba?.reactivos!!)
+        val adaptorPreguntas = PreguntasAdapter(this, prueba?.reactivos!!)
         val botonEnviar = findViewById<Button>(R.id.btnEnviar)
         nombrePrueba.text = prueba?.nombrePrueba
-        listaPreguntas.adapter = adapatorPreguntas
+        listaPreguntas.adapter = adaptorPreguntas
 
         if(prueba?.reactivos.get(0).status.equals("Contestada")) {
             botonEnviar.isVisible = false
@@ -58,19 +59,29 @@ class PruebaActivity: AppCompatActivity() {
 
         botonEnviar.setOnClickListener {
             it: View ->
-                val items = adapatorPreguntas.items
-                var reactivosRespuesta: ArrayList<ReactivoRespuestaModel> = ArrayList<ReactivoRespuestaModel>()
-                var aux: String = ""
+            val items = adaptorPreguntas.items
+            var reactivosRespuesta: ArrayList<ReactivoRespuestaModel> = ArrayList<ReactivoRespuestaModel>()
+            var aux: String = ""
+
+            var opcionesRespuestaModel: ArrayList<OpcionesRespuestaModel> = ArrayList<OpcionesRespuestaModel>()
 
             if (items != null) {
                 for (i in 0..(items.size - 1)) {
-                    reactivosRespuesta.add(ReactivoRespuestaModel(
-                            prueba.reactivos.get(i).pregunta,
-                            prueba.reactivos.get(i).opciones,
-                            prueba.reactivos.get(i).valor.get(i),
-                            prueba.reactivos.get(i).tipo,
-                            items.get(i).respuesta
+                    var opcionesRespuestaModel: ArrayList<OpcionesRespuestaModel> = ArrayList<OpcionesRespuestaModel>()
+                    for(j in 0..prueba.reactivos.get(0).opciones.size - 1) {
+                        opcionesRespuestaModel.add(
+                            OpcionesRespuestaModel(
+                                prueba.reactivos.get(i).opciones.get(j),
+                                prueba.reactivos.get(i).valor.get(j)
+                            )
                         )
+                    }
+                    reactivosRespuesta.add(ReactivoRespuestaModel(
+                        prueba.reactivos.get(i).pregunta,
+                        opcionesRespuestaModel,
+                        prueba.reactivos.get(i).tipo,
+                        items.get(i).respuesta
+                    )
                     )
                 }
             }

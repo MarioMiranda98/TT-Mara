@@ -21,5 +21,6 @@ class NetworkConstants {
         val responderPruebaAbierta: String = "saveanwersa"
         val pruebasInvitado: String = "trials"
         val statusPrueba: String = "upstatus"
+        val responderPruebaInvitados: String = "saveanwersinv"
     }
 }

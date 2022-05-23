@@ -5,6 +5,8 @@ import Adapters.PruebasInvitadoAdapter
 import Helpers.NetworkConstants
 import Models.ListaPruebasInvitadoModel
 import Models.ListaPruebasModel
+import Models.PruebaModel
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -40,7 +42,24 @@ class homeinvitado : AppCompatActivity() {
                     listasInivitado.onItemClickListener =
                         AdapterView.OnItemClickListener {
                                 parent, view, position, id ->
-                                    Toast.makeText(this, "Registrese para acceder a las pruebas", Toast.LENGTH_LONG).show()
+                                val urlNueva: String = NetworkConstants.urlApi + NetworkConstants.findtrial + "?name=${lista.get(position).prueba }"
+                                val jsonObjectRequest = JsonObjectRequest(urlNueva, null, Response.Listener {
+                                    response ->  Log.d("Respuesta", response.toString())
+                                    if(response.getInt("code") == 200) {
+                                        val json = JSONObject(response.toString())
+                                        val pruebaRequest = PruebaModel(
+                                            json.getJSONArray("data").getJSONObject(0),
+                                            "Pendiente"
+                                        )
+                                        val intent = Intent(this, PruebaInvitadoActivity::class.java)
+                                        intent.putExtra("prueba", pruebaRequest)
+                                        startActivity(intent)
+                                    }
+                                }, Response.ErrorListener {
+                                    error -> Log.d("Error", error.toString())
+                                })
+
+                                queue.add(jsonObjectRequest)
                         }
                 }
             },

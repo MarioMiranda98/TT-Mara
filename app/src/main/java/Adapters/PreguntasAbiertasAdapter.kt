@@ -46,6 +46,12 @@ class PreguntasAbiertasAdapter(var context: Context, items: ArrayList<ReactivoPr
 
         val item = getItem(p0) as ReactivoPruebaAbiertaModel
         holder?.pregunta?.text = item.pregunta
+
+        if(item.status.equals("Contestada")) {
+            holder?.campo?.setText(item.respuesta)
+            holder?.campo?.isEnabled = false
+        }
+
         holder?.campo?.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 return

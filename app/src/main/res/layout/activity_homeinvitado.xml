@@ -37,7 +37,10 @@
                 <ListView
                     android:id="@+id/ContenidoInvitado"
                     android:layout_width="match_parent"
-                    android:layout_height="528dp" />
+                    android:layout_height="528dp"
+                    android:cacheColorHint="#9C27B0"
+                    android:foregroundTint="#9C27B0"
+                    android:textFilterEnabled="false" />
 
             </LinearLayout>
         </ScrollView>

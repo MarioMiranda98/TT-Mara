@@ -87,16 +87,27 @@ class pruebasasignadas : AppCompatActivity() {
                                                 startActivity(intent)
                                             }
                                         } else {
-                                            val intent =
-                                                Intent(this, PruebaAbiertaActivity::class.java)
-                                            val pruebaRequest: PruebaAbiertaModel =
-                                                PruebaAbiertaModel(
+                                            if(lista.get(position).status.equals("Pendiente")) {
+                                                val intent =
+                                                    Intent(this, PruebaAbiertaActivity::class.java)
+                                                val pruebaRequest: PruebaAbiertaModel =
+                                                    PruebaAbiertaModel(
+                                                        json.getJSONArray("data").getJSONObject(0),
+                                                        lista.get(position).status
+                                                    )
+                                                intent.putExtra("prueba", pruebaRequest)
+                                                intent.putExtra("resultados", false)
+                                                startActivity(intent)
+                                            } else {
+                                                val pruebaRequest = PruebaAbiertaModel(
                                                     json.getJSONArray("data").getJSONObject(0),
                                                     lista.get(position).status
                                                 )
-                                            intent.putExtra("prueba", pruebaRequest)
-                                            intent.putExtra("resultados", false)
-                                            startActivity(intent)
+                                                val intent = Intent(this, PruebaAbiertaActivity::class.java)
+                                                intent.putExtra("prueba", pruebaRequest)
+                                                intent.putExtra("resultados", true)
+                                                startActivity(intent)
+                                            }
                                         }
                                     } else {
                                         Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()

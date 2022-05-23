@@ -3,6 +3,7 @@ package Paquetes.A027
 import Adapters.PreguntasAbiertasAdapter
 import Helpers.NetworkConstants
 import Models.*
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -36,7 +37,7 @@ class PruebaAbiertaActivity: AppCompatActivity() {
 
         if(prueba?.reactivos.get(0).status.equals("Contestada")) {
             botonEnviar.isVisible = false
-            resultadoPruebaAbierta.isVisible = false
+            resultadoPruebaAbierta.isVisible = true
         }
 
         if(prueba?.reactivos.get(0).status.equals("Pendiente")) {
@@ -47,7 +48,7 @@ class PruebaAbiertaActivity: AppCompatActivity() {
             botonEnviar.isVisible = false
             resultadoPruebaAbierta.isVisible = true
             val aux = resultadoPruebaAbierta.text.toString()
-            resultadoPruebaAbierta.text = aux + " " + prueba
+            resultadoPruebaAbierta.text = aux + " " + prueba.analisisTratamiento
         }
 
         botonEnviar.setOnClickListener {
@@ -80,18 +81,35 @@ class PruebaAbiertaActivity: AppCompatActivity() {
             val jsonPruebaRes: String = gson.toJson(pruebaRespuestaAbiertaModel.reactivos_respuestas)
             Log.d("Json Prueba", jsonPruebaRes)
 
-            val urlNueva = NetworkConstants.urlApi + NetworkConstants.responderPrueba + "?name=${pruebaRespuestaAbiertaModel.nombre_prueba}&paci=${pruebaRespuestaAbiertaModel.quien_respondio}&type=${pruebaRespuestaAbiertaModel.tipo}&clasif=${pruebaRespuestaAbiertaModel.clasif}&trial=${jsonPruebaRes}"
+            val urlNueva = NetworkConstants.urlApi + NetworkConstants.responderPruebaAbierta + "?name=${pruebaRespuestaAbiertaModel.nombre_prueba}&paci=${pruebaRespuestaAbiertaModel.quien_respondio}&type=${pruebaRespuestaAbiertaModel.tipo}&clasif=${pruebaRespuestaAbiertaModel.clasif}&trial=${jsonPruebaRes}"
             val queue = Volley.newRequestQueue(this)
             val jsonObjectRequest = JsonObjectRequest(
                 Request.Method.POST, urlNueva, null, Response.Listener {
                         response -> Log.d("Respuesta", response.toString())
+                        if(response.getInt("code") == 201) {
+                            val urlStatus = NetworkConstants.urlApi + NetworkConstants.statusPrueba + "?trial=${pruebaRespuestaAbiertaModel.nombre_prueba}&paci=${pruebaRespuestaAbiertaModel.quien_respondio}"
+                            val jsonObjectRequest = JsonObjectRequest(Request.Method.POST, urlStatus,
+                                null, Response.Listener { response ->
+                                    if(response.getInt("code") == 200) {
+                                        Log.d("Status cambiado", "El status ha sido cambiado")
+                                        startActivity(Intent(this, pruebasasignadas::class.java))
+                                    }
+                                },
+                                Response.ErrorListener {
+                                        error -> Log.d("Error", "Error al actualizar las respuestas del formulario")
+                                    startActivity(Intent(this, pruebasasignadas::class.java))
+                                }
+                            )
+
+                            queue.add(jsonObjectRequest)
+                        }
                 },
                 Response.ErrorListener {
                         error -> Log.d("Error", "Error al enviar las respuestas del formulario")
                 }
             )
 
-            queue.add(jsonObjectRequest)
+           queue.add(jsonObjectRequest)
         }
     }
 }

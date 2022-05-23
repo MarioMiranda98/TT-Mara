@@ -18,7 +18,7 @@ class ReactivoPruebaModel: Serializable {
         this.tipo = dataJson.getString("tipo")
         if(status.equals("Contestada")) {
             this.respuesta = dataJson.getInt("respuesta")
-            this.opciones = parsearOpcionesContestadas(dataJson.getString("opciones"))
+            this.opciones = parsearOpciones(dataJson.getJSONArray("opciones"))
         }
         else {
             this.respuesta = -1
@@ -33,18 +33,6 @@ class ReactivoPruebaModel: Serializable {
 
         for(i in 0..data.length() -1) {
             listaOpciones.add(data.getJSONObject(i).getString("text"))
-        }
-
-        return listaOpciones
-    }
-
-    private fun parsearOpcionesContestadas(data: String): ArrayList<String> {
-        val listaOpciones = ArrayList<String>()
-        val gson = Gson()
-        val aux = gson.fromJson(data, Array<String>::class.java).asList()
-
-        for(i in 0..aux.size - 1) {
-            listaOpciones.add(aux.get(i))
         }
 
         return listaOpciones

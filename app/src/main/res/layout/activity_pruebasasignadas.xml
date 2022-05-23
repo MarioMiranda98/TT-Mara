@@ -28,7 +28,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="casual"
-                    android:text="Pruebas psicológicas asginadas"
+                    android:text="Pruebas psicológicas asignadas"
                     android:textAlignment="center"
                     android:textAllCaps="false"
                     android:textColor="#462483"

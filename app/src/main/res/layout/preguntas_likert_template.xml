@@ -19,7 +19,7 @@
             android:fontFamily="casual"
             android:text="TextView"
             android:textAlignment="center"
-            android:textColor="#000000"
+            android:textColor="#673AB7"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -33,28 +33,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="casual"
-                android:text="RadioButton" />
+                android:text="RadioButton"
+                android:textColor="#673AB7"
+                android:textStyle="bold" />
 
             <RadioButton
                 android:id="@+id/radioRes2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="casual"
-                android:text="RadioButton" />
+                android:text="RadioButton"
+                android:textColor="#673AB7"
+                android:textStyle="bold" />
 
             <RadioButton
                 android:id="@+id/radioRes3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="casual"
-                android:text="RadioButton" />
+                android:text="RadioButton"
+                android:textColor="#673AB7"
+                android:textStyle="bold" />
 
             <RadioButton
                 android:id="@+id/radioRes4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="casual"
-                android:text="RadioButton" />
+                android:text="RadioButton"
+                android:textColor="#673AB7"
+                android:textStyle="bold" />
         </RadioGroup>
 
     </LinearLayout>
