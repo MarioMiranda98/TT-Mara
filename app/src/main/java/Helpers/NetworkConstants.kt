@@ -22,5 +22,7 @@ class NetworkConstants {
         val pruebasInvitado: String = "trials"
         val statusPrueba: String = "upstatus"
         val responderPruebaInvitados: String = "saveanwersinv"
+        val cambiarFechaPrueba: String = "upfecha"
+        val borrarPrueba: String = "deleteasign"
     }
 }
