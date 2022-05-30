@@ -10,12 +10,15 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.core.view.isVisible
 
-
 class PreguntasAdapter(var context: Context, items: ArrayList<ReactivoPruebaModel>): BaseAdapter() {
     var items: ArrayList<ReactivoPruebaModel>? = null
+    var tagsGenerales: HashMap<Int, RadioButton>? = null
+    var botonChecado: HashMap<Int, Int>? = null
 
     init {
         this.items = items
+        this.tagsGenerales = HashMap<Int, RadioButton>()
+        this.botonChecado = HashMap<Int, Int>()
     }
 
     override fun getCount(): Int {
@@ -49,20 +52,52 @@ class PreguntasAdapter(var context: Context, items: ArrayList<ReactivoPruebaMode
         else { contestada = false }
 
         pintarReactivos(holder, item)
-        pintarRespuestas(holder, item, contestada)
+        if(contestada) { pintarRespuestas(holder, item) }
 
         if(!contestada) {
-            val radioMap = guardarTags(holder, item)
+            val radioMap: HashMap<Int, Int> = guardarTags(holder, item, p0)
             holder?.radioGroup?.setTag(radioMap)
+            val aux = radioMap.keys.toList()
+            tagsGenerales?.putAll(llenarTagsGenerales(holder, item, aux))
+
+            for(i in botonChecado?.keys!!) {
+                for(j in tagsGenerales?.keys!!) {
+                    if(i != j) {
+                        tagsGenerales?.get(j)?.isChecked = false
+                    }
+                }
+            }
 
             holder?.radioGroup?.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group: RadioGroup?, i: Int ->
+                val pos: Int = (i + (item.opciones.size * p0))
                 val data = group!!.tag as HashMap<Int, Int>
-                //Toast.makeText(context, data.get(i).toString(), Toast.LENGTH_SHORT).show()
-                item.respuesta = data.get(i)!!
-            }
-            )
+                item.respuesta = data.get(pos)!!
+
+                botonChecado?.put(pos, pos)
+            })
         }
         return vista!!
+    }
+
+    private fun llenarTagsGenerales(holder: ViewHolder?, item: ReactivoPruebaModel, aux: List<Int>): HashMap<Int, RadioButton> {
+        val numOpciones = item.opciones.size
+        var auxTags: HashMap<Int, RadioButton> = HashMap<Int, RadioButton>()
+
+        if(numOpciones == 4) {
+            auxTags?.put(aux.get(0), holder?.respuesta1!!)
+            auxTags?.put(aux.get(1), holder?.respuesta2!!)
+            auxTags?.put(aux.get(2), holder?.respuesta3!!)
+            auxTags?.put(aux.get(3), holder?.respuesta4!!)
+        } else if (numOpciones == 3) {
+            auxTags?.put(aux.get(0), holder?.respuesta1!!)
+            auxTags?.put(aux.get(1), holder?.respuesta2!!)
+            auxTags?.put(aux.get(2), holder?.respuesta3!!)
+        } else if (numOpciones == 2) {
+            auxTags?.put(aux.get(0), holder?.respuesta1!!)
+            auxTags?.put(aux.get(1), holder?.respuesta2!!)
+        }
+
+        return auxTags
     }
 
     private fun pintarReactivos(holder: ViewHolder?, item: ReactivoPruebaModel) {
@@ -87,29 +122,28 @@ class PreguntasAdapter(var context: Context, items: ArrayList<ReactivoPruebaMode
         }
     }
 
-    private fun guardarTags(holder: ViewHolder?, item: ReactivoPruebaModel): HashMap<Int, Int> {
+    private fun guardarTags(holder: ViewHolder?, item: ReactivoPruebaModel, posicion: Int): HashMap<Int, Int> {
         val radioMap = HashMap<Int, Int>()
         val numOpciones = item.opciones.size
 
         if(numOpciones == 4) {
-            radioMap[holder?.respuesta1?.getId()!!] = item.valor.get(0)
-            radioMap[holder?.respuesta2?.getId()!!] = item.valor.get(1)
-            radioMap[holder?.respuesta3?.getId()!!] = item.valor.get(2)
-            radioMap[holder?.respuesta4?.getId()!!] = item.valor.get(3)
+            radioMap[(holder?.respuesta1?.id!! + (numOpciones * posicion))] = item.valor.get(0)
+            radioMap[(holder?.respuesta2?.id!! + (numOpciones * posicion))] = item.valor.get(1)
+            radioMap[(holder?.respuesta3?.id!! + (numOpciones * posicion))] = item.valor.get(2)
+            radioMap[(holder?.respuesta4?.id!! + (numOpciones * posicion))] = item.valor.get(3)
         } else if(numOpciones == 3) {
-            radioMap[holder?.respuesta1?.getId()!!] = item.valor.get(0)
-            radioMap[holder?.respuesta2?.getId()!!] = item.valor.get(1)
-            radioMap[holder?.respuesta3?.getId()!!] = item.valor.get(2)
+            radioMap[(holder?.respuesta1?.id!! + (numOpciones * posicion))] = item.valor.get(0)
+            radioMap[(holder?.respuesta2?.id!! + (numOpciones * posicion))] = item.valor.get(1)
+            radioMap[(holder?.respuesta3?.id!! + (numOpciones * posicion))] = item.valor.get(2)
         } else if(numOpciones == 2) {
-            radioMap[holder?.respuesta1?.getId()!!] = item.valor.get(0)
-            radioMap[holder?.respuesta2?.getId()!!] = item.valor.get(1)
+            radioMap[(holder?.respuesta1?.id!! + (numOpciones * posicion))] = item.valor.get(0)
+            radioMap[(holder?.respuesta2?.id!! + (numOpciones * posicion))] = item.valor.get(1)
         }
 
         return radioMap
     }
 
-    private fun pintarRespuestas(holder: ViewHolder?, item: ReactivoPruebaModel, contestada: Boolean) {
-        if (!contestada) return
+    private fun pintarRespuestas(holder: ViewHolder?, item: ReactivoPruebaModel) {
         val numOpciones = item.opciones.size
 
         if(numOpciones == 4) {
