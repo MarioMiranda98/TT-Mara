@@ -12,6 +12,7 @@ class ReactivoPruebaModel: Serializable {
     var tipo: String
     var respuesta: Int
     var status: String
+    var respondida: Boolean
 
     constructor(dataJson: JSONObject, status: String) {
         this.pregunta = dataJson.getString("pregunta")
@@ -26,6 +27,7 @@ class ReactivoPruebaModel: Serializable {
         }
         this.valor = parsearValores(dataJson.getJSONArray("opciones"))
         this.status = status
+        this.respondida = false
     }
 
     private fun parsearOpciones(data: JSONArray): ArrayList<String> {

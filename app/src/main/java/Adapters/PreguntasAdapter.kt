@@ -8,17 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.view.children
+import androidx.core.view.get
 import androidx.core.view.isVisible
 
 class PreguntasAdapter(var context: Context, items: ArrayList<ReactivoPruebaModel>): BaseAdapter() {
     var items: ArrayList<ReactivoPruebaModel>? = null
-    var tagsGenerales: HashMap<Int, RadioButton>? = null
-    var botonChecado: HashMap<Int, Int>? = null
 
     init {
         this.items = items
-        this.tagsGenerales = HashMap<Int, RadioButton>()
-        this.botonChecado = HashMap<Int, Int>()
     }
 
     override fun getCount(): Int {
@@ -55,49 +53,23 @@ class PreguntasAdapter(var context: Context, items: ArrayList<ReactivoPruebaMode
         if(contestada) { pintarRespuestas(holder, item) }
 
         if(!contestada) {
-            val radioMap: HashMap<Int, Int> = guardarTags(holder, item, p0)
-            holder?.radioGroup?.setTag(radioMap)
-            val aux = radioMap.keys.toList()
-            tagsGenerales?.putAll(llenarTagsGenerales(holder, item, aux))
-
-            for(i in botonChecado?.keys!!) {
-                for(j in tagsGenerales?.keys!!) {
-                    if(i != j) {
-                        tagsGenerales?.get(j)?.isChecked = false
-                    }
-                }
+            if(item.respuesta != -1) {
+                Log.d("resp", item.respuesta.toString())
+                pintarRespuestas2(holder, item)
             }
 
-            holder?.radioGroup?.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group: RadioGroup?, i: Int ->
-                val pos: Int = (i + (item.opciones.size * p0))
-                val data = group!!.tag as HashMap<Int, Int>
-                item.respuesta = data.get(pos)!!
+            val radioMap: HashMap<Int, Int> = guardarTags(holder, item, p0)
+            holder?.radioGroup?.setTag(radioMap)
 
-                botonChecado?.put(pos, pos)
+            holder?.radioGroup?.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group: RadioGroup?, i: Int ->
+                if(holder?.radioGroup?.checkedRadioButtonId != -1) {
+                    val pos: Int = (i + (item.opciones.size * p0))
+                    val data = group!!.tag as HashMap<Int, Int>
+                    item.respuesta = data.get(pos)!!
+                }
             })
         }
         return vista!!
-    }
-
-    private fun llenarTagsGenerales(holder: ViewHolder?, item: ReactivoPruebaModel, aux: List<Int>): HashMap<Int, RadioButton> {
-        val numOpciones = item.opciones.size
-        var auxTags: HashMap<Int, RadioButton> = HashMap<Int, RadioButton>()
-
-        if(numOpciones == 4) {
-            auxTags?.put(aux.get(0), holder?.respuesta1!!)
-            auxTags?.put(aux.get(1), holder?.respuesta2!!)
-            auxTags?.put(aux.get(2), holder?.respuesta3!!)
-            auxTags?.put(aux.get(3), holder?.respuesta4!!)
-        } else if (numOpciones == 3) {
-            auxTags?.put(aux.get(0), holder?.respuesta1!!)
-            auxTags?.put(aux.get(1), holder?.respuesta2!!)
-            auxTags?.put(aux.get(2), holder?.respuesta3!!)
-        } else if (numOpciones == 2) {
-            auxTags?.put(aux.get(0), holder?.respuesta1!!)
-            auxTags?.put(aux.get(1), holder?.respuesta2!!)
-        }
-
-        return auxTags
     }
 
     private fun pintarReactivos(holder: ViewHolder?, item: ReactivoPruebaModel) {
@@ -144,6 +116,39 @@ class PreguntasAdapter(var context: Context, items: ArrayList<ReactivoPruebaMode
     }
 
     private fun pintarRespuestas(holder: ViewHolder?, item: ReactivoPruebaModel) {
+        val numOpciones = item.opciones.size
+
+        if(numOpciones == 4) {
+            holder?.respuesta1?.isChecked = item.respuesta == item.valor.get(0)
+            holder?.respuesta1?.isEnabled = false
+
+            holder?.respuesta2?.isChecked = item.respuesta == item.valor.get(1)
+            holder?.respuesta2?.isEnabled = false
+
+            holder?.respuesta3?.isChecked = item.respuesta == item.valor.get(2)
+            holder?.respuesta3?.isEnabled = false
+
+            holder?.respuesta4?.isChecked = item.respuesta == item.valor.get(3)
+            holder?.respuesta4?.isEnabled = false
+        } else if (numOpciones == 3) {
+            holder?.respuesta1?.isChecked = item.respuesta == item.valor.get(0)
+            holder?.respuesta1?.isEnabled = false
+
+            holder?.respuesta2?.isChecked = item.respuesta == item.valor.get(1)
+            holder?.respuesta2?.isEnabled = false
+
+            holder?.respuesta3?.isChecked = item.respuesta == item.valor.get(2)
+            holder?.respuesta3?.isEnabled = false
+        } else if (numOpciones == 2) {
+            holder?.respuesta1?.isChecked = item.respuesta == item.valor.get(0)
+            holder?.respuesta1?.isEnabled = false
+
+            holder?.respuesta2?.isChecked = item.respuesta == item.valor.get(1)
+            holder?.respuesta2?.isEnabled = false
+        }
+    }
+
+    private fun pintarRespuestas2(holder: ViewHolder?, item: ReactivoPruebaModel) {
         val numOpciones = item.opciones.size
 
         if(numOpciones == 4) {

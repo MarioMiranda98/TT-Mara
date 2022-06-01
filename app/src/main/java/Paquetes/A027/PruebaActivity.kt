@@ -2,20 +2,18 @@ package Paquetes.A027
 
 import Adapters.PreguntasAdapter
 import Helpers.NetworkConstants
-import Models.OpcionesRespuestaModel
-import Models.PruebaModel
-import Models.PruebaRespuestaModel
-import Models.ReactivoRespuestaModel
+import Models.*
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -23,7 +21,9 @@ import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 
 class PruebaActivity: AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
+        var index: Int = 0
+
+        override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_prueba)
 
@@ -31,42 +31,36 @@ class PruebaActivity: AppCompatActivity() {
         val prueba = intent.getSerializableExtra("prueba") as? PruebaModel
         val mostrarResultados = intent.getBooleanExtra("resultados", false)
         val nombrePrueba = findViewById<TextView>(R.id.NombrePruebaTextView)
-        val layoutResultados = findViewById<LinearLayout>(R.id.ResultadosLayout)
-        var analisisTratamiento = findViewById<TextView>(R.id.AnalisisTratamientotextView)
         val listaPreguntas = findViewById<ListView>(R.id.ContenidoPrueba)
-        val adaptorPreguntas = PreguntasAdapter(this, prueba?.reactivos!!)
+        var adaptadorPreguntas = PreguntasAdapter(this, prueba?.reactivos!!)
         val botonEnviar = findViewById<Button>(R.id.btnEnviar)
+        val botonResultado = findViewById<Button>(R.id.btnResultados)
+        val botonSiguiente = findViewById<Button>(R.id.botonSiguiente)
+        val botonAnterior = findViewById<Button>(R.id.botonAnterior)
+        botonEnviar.isVisible = false
         nombrePrueba.text = prueba?.nombrePrueba
-        listaPreguntas.adapter = adaptorPreguntas
+        listaPreguntas.adapter = adaptadorPreguntas
 
         if(prueba?.reactivos.get(0).status.equals("Contestada")) {
             botonEnviar.isVisible = false
-            layoutResultados.isVisible = false
-            analisisTratamiento.isVisible = false
+            botonResultado.isVisible = true
         }
 
         if(prueba?.reactivos.get(0).status.equals("Pendiente")) {
-            analisisTratamiento.isVisible = false
-        }
-
-        if(mostrarResultados) {
-            botonEnviar.isVisible = false
-            layoutResultados.isVisible = true
-            analisisTratamiento.isVisible = true
-            val aux = analisisTratamiento.text.toString()
-            analisisTratamiento.text = aux + " " + prueba.analisisTratamiento
+            botonEnviar.isVisible = true
+            botonResultado.isVisible = false
         }
 
         botonEnviar.setOnClickListener {
             it: View ->
-            val items = adaptorPreguntas.items
+            val items = prueba?.reactivos.size
             var reactivosRespuesta: ArrayList<ReactivoRespuestaModel> = ArrayList<ReactivoRespuestaModel>()
             var aux: String = ""
 
             var opcionesRespuestaModel: ArrayList<OpcionesRespuestaModel> = ArrayList<OpcionesRespuestaModel>()
 
             if (items != null) {
-                for (i in 0..(items.size - 1)) {
+                for (i in 0..(items - 1)) {
                     var opcionesRespuestaModel: ArrayList<OpcionesRespuestaModel> = ArrayList<OpcionesRespuestaModel>()
                     for(j in 0..prueba.reactivos.get(0).opciones.size - 1) {
                         opcionesRespuestaModel.add(
@@ -80,7 +74,7 @@ class PruebaActivity: AppCompatActivity() {
                         prueba.reactivos.get(i).pregunta,
                         opcionesRespuestaModel,
                         prueba.reactivos.get(i).tipo,
-                        items.get(i).respuesta
+                        prueba.reactivos.get(i).respuesta
                     )
                     )
                 }
@@ -109,7 +103,9 @@ class PruebaActivity: AppCompatActivity() {
                             null, Response.Listener { response ->
                                 if(response.getInt("code") == 200) {
                                     Log.d("Status cambiado", "El status ha sido cambiado")
-                                    startActivity(Intent(this, pruebasasignadas::class.java))
+                                    val i = Intent(this, homepaciente::class.java)
+                                    i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                    startActivity(i)
                                 }
                             },
                             Response.ErrorListener {
@@ -128,5 +124,69 @@ class PruebaActivity: AppCompatActivity() {
 
             queue.add(jsonObjectRequest)
         }
+
+        botonResultado.setOnClickListener {
+            it: View ->
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Resultado")
+            builder.setMessage(prueba.analisisTratamiento)
+            builder.setIcon(android.R.drawable.ic_dialog_info)
+            builder.setPositiveButton("Aceptar"){dialogInterface , which -> }
+
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.setCancelable(false)
+            alertDialog.show()
+        }
+
+            botonSiguiente.setOnClickListener {
+                    it: View ->
+                if(index + 2 < prueba?.reactivos.size) {
+                    val items = adaptadorPreguntas.items
+
+                    if(items != null) {
+                        for(i in 0..items?.size!! - 1) {
+                            prueba?.reactivos?.get((index) + i).respuesta = items.get(i).respuesta
+                        }
+                    }
+
+                    index += 2
+                    adaptadorPreguntas = PreguntasAdapter(this, extraerPreguntas(prueba?.reactivos!!, index, (index + 1)))
+                    listaPreguntas.adapter = adaptadorPreguntas
+
+                } else {
+                    if(prueba?.reactivos.get(0).status.equals("Contestada")) {
+                        botonEnviar.isVisible = false
+                    } else {
+                        botonEnviar.isVisible = true
+                    }
+                }
+            }
+
+            botonAnterior.setOnClickListener {
+                    it: View ->
+                if ((index) > 0) {
+                    val items = adaptadorPreguntas.items
+
+                    if(items != null) {
+                        for(i in 0..items?.size!! - 1) {
+                            prueba?.reactivos?.get((index) + i).respuesta = items.get(i).respuesta
+                        }
+                    }
+
+                    index -= 2
+                    adaptadorPreguntas = PreguntasAdapter(this, extraerPreguntas(prueba?.reactivos!!, index, (index + 1)))
+                    listaPreguntas.adapter = adaptadorPreguntas
+                }
+
+                botonEnviar.isVisible = false
+            }
+        }
+
+    private fun extraerPreguntas(items: ArrayList<ReactivoPruebaModel>, indexInicio: Int, indexFinal: Int): ArrayList<ReactivoPruebaModel> {
+        var final: ArrayList<ReactivoPruebaModel> = ArrayList()
+        for(i in indexInicio..indexFinal) {
+            final.add(items?.get(i))
+        }
+        return final
     }
 }

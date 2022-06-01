@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="-365dp">
 
         <TextView
             android:id="@+id/PreguntaTv"
@@ -26,14 +29,14 @@
         <RadioGroup
             android:id="@+id/radioGroup"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <RadioButton
                 android:id="@+id/radioRes1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="casual"
-                android:text="RadioButton"
+                android:text="RadioButton1"
                 android:textColor="#673AB7"
                 android:textStyle="bold" />
 
@@ -42,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="casual"
-                android:text="RadioButton"
+                android:text="RadioButton2"
                 android:textColor="#673AB7"
                 android:textStyle="bold" />
 
@@ -51,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="casual"
-                android:text="RadioButton"
+                android:text="RadioButton3"
                 android:textColor="#673AB7"
                 android:textStyle="bold" />
 
@@ -60,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="casual"
-                android:text="RadioButton"
+                android:text="4"
                 android:textColor="#673AB7"
                 android:textStyle="bold" />
         </RadioGroup>

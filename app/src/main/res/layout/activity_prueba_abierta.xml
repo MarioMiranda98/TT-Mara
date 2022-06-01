@@ -26,7 +26,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="617dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -38,28 +38,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="600dp" />
 
-                <Button
-                    android:id="@+id/btnEnviarAbierta"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="casual"
-                    android:text="Enviar"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/ResultadoPruebaAbierta"
-                    android:layout_width="match_parent"
-                    android:layout_height="201dp"
-                    android:fontFamily="casual"
-                    android:text="Resultado:"
-                    android:textColor="#673AB7"
-                    android:textSize="20sp"
-                    android:textStyle="bold|italic" />
             </LinearLayout>
         </ScrollView>
+
+        <Button
+            android:id="@+id/btnEnviarAbierta"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:fontFamily="casual"
+            android:text="Enviar"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnResultadosAbierta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ver Resultados" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

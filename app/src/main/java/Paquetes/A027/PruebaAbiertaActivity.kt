@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.android.volley.Request
@@ -30,25 +31,19 @@ class PruebaAbiertaActivity: AppCompatActivity() {
         val listaPreguntas = findViewById<ListView>(R.id.ContenidoPruebaAbierta)
         val adapatorPreguntas = PreguntasAbiertasAdapter(this, prueba?.reactivos!!)
         val botonEnviar = findViewById<Button>(R.id.btnEnviarAbierta)
-        val resultadoPruebaAbierta = findViewById<TextView>(R.id.ResultadoPruebaAbierta)
+        val botonResultado = findViewById<Button>(R.id.btnResultadosAbierta)
 
         nombrePrueba.text = prueba?.nombrePrueba
         listaPreguntas.adapter = adapatorPreguntas
 
         if(prueba?.reactivos.get(0).status.equals("Contestada")) {
             botonEnviar.isVisible = false
-            resultadoPruebaAbierta.isVisible = true
+            botonResultado.isVisible = true
         }
 
         if(prueba?.reactivos.get(0).status.equals("Pendiente")) {
-            resultadoPruebaAbierta.isVisible = false
-        }
-
-        if(mostrarResultados) {
-            botonEnviar.isVisible = false
-            resultadoPruebaAbierta.isVisible = true
-            val aux = resultadoPruebaAbierta.text.toString()
-            resultadoPruebaAbierta.text = aux + " " + prueba.analisisTratamiento
+            botonResultado.isVisible = false
+            botonEnviar.isVisible = true
         }
 
         botonEnviar.setOnClickListener {
@@ -92,7 +87,9 @@ class PruebaAbiertaActivity: AppCompatActivity() {
                                 null, Response.Listener { response ->
                                     if(response.getInt("code") == 200) {
                                         Log.d("Status cambiado", "El status ha sido cambiado")
-                                        startActivity(Intent(this, pruebasasignadas::class.java))
+                                        val i = Intent(this, homepaciente::class.java)
+                                        i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                        startActivity(i)
                                     }
                                 },
                                 Response.ErrorListener {
@@ -110,6 +107,19 @@ class PruebaAbiertaActivity: AppCompatActivity() {
             )
 
            queue.add(jsonObjectRequest)
+        }
+
+        botonResultado.setOnClickListener {
+                it: View ->
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Resultado")
+            builder.setMessage(prueba.analisisTratamiento)
+            builder.setIcon(android.R.drawable.ic_dialog_info)
+            builder.setPositiveButton("Aceptar"){dialogInterface , which -> }
+
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.setCancelable(false)
+            alertDialog.show()
         }
     }
 }
