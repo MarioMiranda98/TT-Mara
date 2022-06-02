@@ -31,7 +31,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="15dp"
             android:background="#B3673AB7"
             android:backgroundTint="#B3673AB7"
             android:ems="10"

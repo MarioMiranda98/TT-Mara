@@ -5,6 +5,7 @@ import Paquetes.A027.R
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,6 +51,11 @@ class PreguntasAbiertasAdapter(var context: Context, items: ArrayList<ReactivoPr
         if(item.status.equals("Contestada")) {
             holder?.campo?.setText(item.respuesta)
             holder?.campo?.isEnabled = false
+        }
+
+        if(item.respuesta.length > 0) {
+            Log.d("resp", item.respuesta.toString())
+            holder?.campo?.setText(item.respuesta)
         }
 
         holder?.campo?.addTextChangedListener(object: TextWatcher {

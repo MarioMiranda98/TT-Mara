@@ -1,6 +1,7 @@
 package Paquetes.A027
 
 import Adapters.PreguntasAbiertasAdapter
+import Adapters.PreguntasAdapter
 import Helpers.NetworkConstants
 import Models.*
 import android.content.Intent
@@ -20,6 +21,8 @@ import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 
 class PruebaAbiertaActivity: AppCompatActivity() {
+    var index: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_prueba_abierta)
@@ -29,12 +32,14 @@ class PruebaAbiertaActivity: AppCompatActivity() {
         val mostrarResultados = intent.getBooleanExtra("resultados", false)
         val nombrePrueba = findViewById<TextView>(R.id.NombrePruebaTextViewAbierta)
         val listaPreguntas = findViewById<ListView>(R.id.ContenidoPruebaAbierta)
-        val adapatorPreguntas = PreguntasAbiertasAdapter(this, prueba?.reactivos!!)
+        var adaptadorPreguntas = PreguntasAbiertasAdapter(this, extraerPreguntas(prueba?.reactivos!!, index, (index + 4)))
         val botonEnviar = findViewById<Button>(R.id.btnEnviarAbierta)
+        val botonSiguiente = findViewById<Button>(R.id.btnSiguienteAbierta)
+        val botonAnterior = findViewById<Button>(R.id.btnAnteriorAbierta)
         val botonResultado = findViewById<Button>(R.id.btnResultadosAbierta)
-
         nombrePrueba.text = prueba?.nombrePrueba
-        listaPreguntas.adapter = adapatorPreguntas
+        listaPreguntas.adapter = adaptadorPreguntas
+        botonEnviar.isVisible = false
 
         if(prueba?.reactivos.get(0).status.equals("Contestada")) {
             botonEnviar.isVisible = false
@@ -43,21 +48,21 @@ class PruebaAbiertaActivity: AppCompatActivity() {
 
         if(prueba?.reactivos.get(0).status.equals("Pendiente")) {
             botonResultado.isVisible = false
-            botonEnviar.isVisible = true
+            botonEnviar.isVisible = false
         }
 
         botonEnviar.setOnClickListener {
                 it: View ->
-            val items = adapatorPreguntas.items
+            val items = prueba?.reactivos.size
             var reactivosRespuesta: ArrayList<ReactivoRespuestaAbiertaModel> = ArrayList<ReactivoRespuestaAbiertaModel>()
             var aux: String = ""
 
             if(items != null) {
-                for(i in 0..items.size - 1) {
+                for(i in 0..items - 1) {
                     reactivosRespuesta.add(
                         ReactivoRespuestaAbiertaModel(
                             prueba.reactivos.get(i).pregunta,
-                            items.get(i).respuesta
+                            prueba.reactivos.get(i).respuesta
                         )
                     )
                 }
@@ -121,5 +126,57 @@ class PruebaAbiertaActivity: AppCompatActivity() {
             alertDialog.setCancelable(false)
             alertDialog.show()
         }
+
+
+        botonSiguiente.setOnClickListener {
+                it: View ->
+            if(index + 5 < prueba?.reactivos.size) {
+                val items = adaptadorPreguntas.items
+
+                if(items != null) {
+                    for(i in 0..items?.size!! - 1) {
+                        prueba?.reactivos?.get((index) + i).respuesta = items.get(i).respuesta
+                    }
+                }
+
+                index += 5
+                adaptadorPreguntas = PreguntasAbiertasAdapter(this, extraerPreguntas(prueba?.reactivos!!, index, (index + 4)))
+                listaPreguntas.adapter = adaptadorPreguntas
+
+            } else {
+                if(prueba?.reactivos.get(0).status.equals("Contestada")) {
+                    botonEnviar.isVisible = false
+                } else {
+                    botonEnviar.isVisible = true
+                }
+            }
+        }
+
+        botonAnterior.setOnClickListener {
+                it: View ->
+            if ((index) > 0) {
+                val items = adaptadorPreguntas.items
+
+                if(items != null) {
+                    for(i in 0..items?.size!! - 1) {
+                        prueba?.reactivos?.get((index) + i).respuesta = items.get(i).respuesta
+                    }
+                }
+
+                index -= 5
+                adaptadorPreguntas = PreguntasAbiertasAdapter(this, extraerPreguntas(prueba?.reactivos!!, index, (index + 4)))
+                listaPreguntas.adapter = adaptadorPreguntas
+            }
+
+            botonEnviar.isVisible = false
+        }
+    }
+
+    private fun extraerPreguntas(items: ArrayList<ReactivoPruebaAbiertaModel>, indexInicio: Int, indexFinal: Int): ArrayList<ReactivoPruebaAbiertaModel> {
+        var final: ArrayList<ReactivoPruebaAbiertaModel> = ArrayList()
+        for(i in indexInicio..indexFinal) {
+            final.add(items?.get(i))
+        }
+        return final
     }
 }

@@ -26,7 +26,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="617dp">
+            android:layout_height="549dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -36,10 +36,34 @@
                 <ListView
                     android:id="@+id/ContenidoPruebaAbierta"
                     android:layout_width="match_parent"
-                    android:layout_height="600dp" />
+                    android:layout_height="520dp" />
 
             </LinearLayout>
         </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnAnteriorAbierta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:text="Anterior" />
+
+            <Button
+                android:id="@+id/btnSiguienteAbierta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:text="Siguiente" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnEnviarAbierta"

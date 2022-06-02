@@ -32,7 +32,7 @@ class PruebaActivity: AppCompatActivity() {
         val mostrarResultados = intent.getBooleanExtra("resultados", false)
         val nombrePrueba = findViewById<TextView>(R.id.NombrePruebaTextView)
         val listaPreguntas = findViewById<ListView>(R.id.ContenidoPrueba)
-        var adaptadorPreguntas = PreguntasAdapter(this, prueba?.reactivos!!)
+        var adaptadorPreguntas = PreguntasAdapter(this, extraerPreguntas(prueba?.reactivos!!, index, (index + 1)))
         val botonEnviar = findViewById<Button>(R.id.btnEnviar)
         val botonResultado = findViewById<Button>(R.id.btnResultados)
         val botonSiguiente = findViewById<Button>(R.id.botonSiguiente)
